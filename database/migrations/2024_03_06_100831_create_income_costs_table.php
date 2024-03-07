@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('income_costs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('user_id');
-            $table->integer('budget');
-            $table->integer('monthly_income');
-            $table->integer('monthly_cost');
-            $table->integer('total_income');
-            $table->integer('total_cost');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('budget')->default(0);
+            $table->integer('monthly_income')->default(0);
+            $table->integer('monthly_cost')->default(0);
+            $table->integer('total_income')->default(0);
+            $table->integer('total_cost')->default(0);
             $table->timestamps();
         });
     }

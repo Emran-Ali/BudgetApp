@@ -35,6 +35,10 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 });
 
+Route::get('/test', function(){
+    return view('TestBar');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
