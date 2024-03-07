@@ -24,12 +24,11 @@
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                     @else
                         @include('include/navbar')
-
                     @endauth
             @endif
             <div class="container p-10 text-emerald-500">
                 <strong class="text-6xl">Welcome To Asset Management App </strong>
-                <p><strong class="text-white"> Manage Your Asset . Keep Track of your asset. </strong></p>
+                <p><strong class="text-white">  Keep Track of your asset with smart way. </strong></p>
             </div>
     </body>
 </html>

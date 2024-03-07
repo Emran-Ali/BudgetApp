@@ -1,28 +1,14 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Budget App</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet"/>
-
-    <!-- Styles -->
-    @vite('resources/css/app.css')
-</head>
-<body class="flex items-center justify-center w-screen h-screen p-10 space-x-6 bg-gray-300">
 
 <!-- Component Start -->
 <div class="flex flex-col items-center w-40 h-full overflow-hidden text-gray-400 bg-gray-900 rounded">
-    <a class="flex items-center w-full px-3 mt-3" href="#">
+    <a class="flex items-center text-emerald-500 w-full px-3 mt-3" >
         <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path
                 d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z"/>
         </svg>
-        <span class="ml-2 text-xl font-bold">Budget App</span>
+        <span class="ml-2 text-xl font-bold ">Budget App</span>
     </a>
     <div class="w-full px-2">
         <div class="flex flex-col items-center w-full mt-3 border-t border-gray-700">
@@ -183,7 +169,3 @@
     </a>
 </div>
 <!-- Component End  -->
-
-
-</body>
-</html>
