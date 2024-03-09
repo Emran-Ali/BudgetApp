@@ -20,6 +20,7 @@
 
 <body class="antialiased">
     <div class="flex flex-row">
+        @dd($user->first);
         @include('include/sidebar')
         <div class="m-4">
             <div class="container p-10 text-emerald-500">
