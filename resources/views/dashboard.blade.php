@@ -20,11 +20,11 @@
 
 <body class="antialiased">
     <div class="flex flex-row">
-        @dd($user->first);
+{{--        @dd($user);--}}
         @include('include/sidebar')
         <div class="m-4">
-            <div class="container p-10 text-emerald-500">
-                <strong class="text-6xl text-center w-full">Welcome To Asset Management App </strong>
+            <div class="nav fixed top-0">
+                <strong class="text-2xl text-center w-full">Welcome To Asset {{$user->name }} </strong>
                 <p class="h-96">hello</p>
             </div>
         </div>
