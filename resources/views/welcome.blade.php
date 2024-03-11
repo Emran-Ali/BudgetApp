@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/favicon.ico" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        laravel: "#ef3b2d",
+                    },
+                },
+            },
+        };
+    </script>
+    <title>Budget | Manage your asset</title>
 
-        <title>Budget App</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-{{--        _daisyUi CDN Link--}}
-
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.tailwindcss.com"></script>
-
-
-    </head>
-    <body class="antialiased">
-            @if (Route::has('login'))
-
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
-                    @else
-                        @include('include/navbar')
-                    @endauth
-            @endif
-            <div class="container p-10 text-emerald-500">
-                <strong class="text-6xl">Welcome To Asset Management App </strong>
-                <p><strong class="text-white">  Keep Track of your asset with smart way. </strong></p>
-            </div>
-    </body>
+</head>
+<body style="background-image: url(https://cdn.vuram.com/b0d65e81d5d28a3be4bfcc4494cbd0ed.jpg);background-size: 100% 210%;" >
+    @yield('content')
+</body>
 </html>

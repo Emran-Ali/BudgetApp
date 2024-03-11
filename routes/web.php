@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\IncomeCostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +16,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.greating');
 });
 
-Route::get('/dashboard', [\App\Http\Controllers\IncomeCostController::class,'dashboard'])->middleware(['auth'])->name('dashboard');
+Route::get('/register', [UserController::class,'create']);
+Route::post('/user', [UserController::class,'store']);
+Route::get('/login', [UserController::class,'login']);
+Route::post('/user/auth', [UserController::class,'authenticate']);
+Route::post('/logout', [UserController::class,'logout']);
+Route::post('/add-income', [IncomeCostController::class,'addIncome']);
+Route::post('/add-cost', [IncomeCostController::class,'addCost']);
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::get('/dashboard/income', function () {
+    return view('components/income-form');
 });
-
-require __DIR__.'/auth.php';
+Route::get('/dashboard/cost', function () {
+    return view('components/cost-form');
+});
+Route::get('/dashboard',[IncomeCostController::class,'show']);
