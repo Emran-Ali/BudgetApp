@@ -15,23 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//__guest middleware group__
 Route::get('/', function () {
     return view('layouts.greating');
 });
-
+Route::get('/login', [UserController::class,'login'])->name('login');
 Route::get('/register', [UserController::class,'create']);
-Route::post('/user', [UserController::class,'store']);
-Route::get('/login', [UserController::class,'login']);
 Route::post('/user/auth', [UserController::class,'authenticate']);
-Route::post('/logout', [UserController::class,'logout']);
-Route::post('/add-income', [IncomeCostController::class,'addIncome']);
-Route::post('/add-cost', [IncomeCostController::class,'addCost']);
+Route::post('/user', [UserController::class,'store']);
+
+//__auth middleware Group__
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [UserController::class,'logout']);
+    Route::post('/add-income', [IncomeCostController::class,'addIncome']);
+    Route::post('/add-cost', [IncomeCostController::class,'addCost']);
+
+    Route::get('/dashboard/income', function () {
+        return view('components/income-form');
+    });
+    Route::get('/dashboard/cost', function () {
+        return view('components/cost-form');
+    });
+    Route::get('/dashboard',[IncomeCostController::class,'show']);
+});
 
 
-Route::get('/dashboard/income', function () {
-    return view('components/income-form');
-});
-Route::get('/dashboard/cost', function () {
-    return view('components/cost-form');
-});
-Route::get('/dashboard',[IncomeCostController::class,'show']);

@@ -10,8 +10,6 @@ class IncomeCostController extends Controller
 {
     public function show()
     {
-        $data = DB::table('income_costs')->where('user_id', 1)->first();
-
         return view('components.dashboard',['data'=> Income_cost::where('User_id',auth()->user()->id)->first()]);
     }
     public function addIncome(Request $request)
@@ -22,7 +20,7 @@ class IncomeCostController extends Controller
             'others' => ['integer', 'gt:-1'],
         ]);
         $total = $validate['salary'] + $validate['others'];
-        DB::table('income_costs')->where('id','1')->incrementEach([
+        DB::table('income_costs')->where('id',auth()->user()->id)->incrementEach([
             'monthly_income'=> $total,
             'total_income'=> $total,
             ]);
@@ -38,7 +36,7 @@ class IncomeCostController extends Controller
             'others' => ['integer', 'gt:-1'],
         ]);
         $total = $validate['accommodation'] + $validate['grocery'] + $validate['transportation' ]+ $validate['others'];
-        DB::table('income_costs')->where('id','1')->incrementEach([
+        DB::table('income_costs')->where('id',auth()->user()->id)->incrementEach([
             'monthly_cost'=> $total,
             'total_cost'=> $total,
         ]);
