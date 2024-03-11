@@ -14,58 +14,30 @@
                 @csrf
 
                 <div class="mb-4">
-                    <label for="accommodation" class="inline-block text-lg ">
-                        Accommodation Cost
+                    <label for="field" class="inline-block text-lg ">
+                        Input Expense Field
                     </label>
                     <input
-                        type="number"
+                        type="text"
                         class="border border-gray-200 rounded p-2 w-full"
-                        name="accommodation" value="{{old('accommodation')}}"
+                        name="field" value="{{old('field')}}"
                     />
                     {{--                    //'required|numeric|gt:0', validation--}}
-                    @error('accommodation')
+                    @error('field')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>
+                <input type="hidden"  name="type" value="cost" />
                 <div class="mb-4">
-                    <label for="grocery" class="inline-block text-lg ">
-                        Groceries Cost
+                    <label for="amount" class="inline-block text-lg ">
+                        Amount
                     </label>
                     <input
                         type="number"
                         class="border border-gray-200 rounded p-2 w-full"
-                        name="grocery" value="{{old('grocery')}}"
+                        name="amount" value="{{old('amount')}}"
                     />
-                    {{--                    //'required|numeric|gt:0', validation--}}
-                    @error('grocery')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="transportation" class="inline-block text-lg ">
-                        Transportation Cost
-                    </label>
-                    <input
-                        type="number"
-                        class="border border-gray-200 rounded p-2 w-full"
-                        name="transportation" value="{{old('transportation')}}"
-                    />
-                    {{--                    //'required|numeric|gt:0', validation--}}
-                    @error('transportation')
-                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label for="others" class="inline-block text-lg ">
-                        Accommodation Cost
-                    </label>
-                    <input
-                        type="number"
-                        class="border border-gray-200 rounded p-2 w-full"
-                        name="others" value="{{old('others')}}"
-                    />
-                    {{--                    //'required|numeric|gt:0', validation--}}
-                    @error('others')
+                    @error('amount')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>

@@ -68,10 +68,6 @@ class UserController extends Controller
         $validate['password'] = bcrypt($validate['password']);
         $user = User::create($validate);
 
-         Income_cost::create([
-            'user_id' => $user->id,
-            'name' => $user->name,
-        ]);
         auth()->login($user);
         return redirect('/dashboard')->with('message','User Created and Login Successfully ');
     }

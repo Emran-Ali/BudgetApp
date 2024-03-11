@@ -14,30 +14,30 @@
             <form method="POST" action="/add-income">
                 @csrf
                 <div class="mb-4">
-                    <label for="salary" class="inline-block text-lg ">
-                        Salary
+                    <label for="field" class="inline-block text-lg ">
+                        Input Income Field
                     </label>
                     <input
-                        type="number"
+                        type="text"
                         class="border border-gray-200 rounded p-2 w-full"
-                        name="salary" value="{{old('salary')}}"
+                        name="field" value="{{old('field')}}"
                     />
 {{--                    //'required|numeric|gt:0', validation--}}
-                    @error('salary')
+                    @error('field')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>
-
+                    <input type="hidden"  name="type" value="income"/>
                 <div class="mb-4">
-                    <label for="others" class="inline-block text-lg ">
-                        Others Income
+                    <label for="amount" class="inline-block text-lg ">
+                        Amount
                     </label>
                     <input
                         type="number"
                         class="border border-gray-200 rounded p-2 w-full"
-                        name="others" value="{{old('others')}}"
+                        name="amount" value="{{old('amount')}}"
                     />
-                    @error('others')
+                    @error('amount')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                     @enderror
                 </div>

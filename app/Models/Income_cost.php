@@ -14,6 +14,6 @@ class Income_cost extends Model
     ];
     public function user()
     {
-        return $this->belongsTo('\App\Models\User','user_id','name');
+        return $this->belongsTo('\App\Models\User','user_id');
     }
 }

@@ -15,31 +15,25 @@ class IncomeCostController extends Controller
     public function addIncome(Request $request)
     {
 //        dd($request->all());
-        $validate = $request->validate([
-            'salary' => ['integer', 'gt:-1'],
-            'others' => ['integer', 'gt:-1'],
+        $validateData = $request->validate([
+            'field' => ['string', 'max:50'],
+            'amount' => ['integer', 'gt:-1'],
         ]);
-        $total = $validate['salary'] + $validate['others'];
-        DB::table('income_costs')->where('id',auth()->user()->id)->incrementEach([
-            'monthly_income'=> $total,
-            'total_income'=> $total,
-            ]);
+        $validateData['type']='income';
+        $validateData['user_id'] = auth()->user()->id;
+        Income_cost::create($validateData);
 
         return redirect('/dashboard')->with('message','Income Added Successfully');
     }
     public function addCost(Request $request)
     {
-        $validate = $request->validate([
-            'accommodation' => ['integer', 'gt:-1'],
-            'grocery' => ['integer', 'gt:-1'],
-            'transportation' => ['integer', 'gt:-1'],
-            'others' => ['integer', 'gt:-1'],
+        $validateData = $request->validate([
+            'field' => ['string', 'max:50'],
+            'amount' => ['integer', 'gt:-1'],
         ]);
-        $total = $validate['accommodation'] + $validate['grocery'] + $validate['transportation' ]+ $validate['others'];
-        DB::table('income_costs')->where('id',auth()->user()->id)->incrementEach([
-            'monthly_cost'=> $total,
-            'total_cost'=> $total,
-        ]);
+        $validateData['type']='cost';
+        $validateData['user_id'] = auth()->user()->id;
+        Income_cost::create($validateData);
         return redirect('/dashboard')->with('message','Cost Added Successfully');
     }
 }

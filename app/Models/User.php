@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     public function incomeCost(){
-        return $this->hasMany('\App\Models\incomeCost','user_id','name');
+        return $this->hasMany('\App\Models\incomeCost','user_id');
     }
 
 }
