@@ -35,11 +35,11 @@
     </div>
     <div class="basis-3/4 w-fit">
         <div class="container bg-cyan-500 top-0">
-            <nav class="flex justify-between items-center p-4 ">
-                <span class="font-bold uppercase">
+            <nav class="flex justify-between items-center p-3 ">
+                <span class="font-bold text-3xl text-gray-100 uppercase">
                     Welcome {{auth()->user()->name}}
                 </span>
-                <form class="inline px-4" method="POST" action="/logout">
+                <form class="inline px-4 font-bold hover:text-red-500" method="POST" action="/logout">
                     @csrf
                     <button type="submit">
                         <i class="fa-solid fa-sign-out"></i> Logout
@@ -49,7 +49,7 @@
         </div>
         <div>
             <main>
-                {{--                @yield('content')--}}
+{{--            @yield('content')--}}
                 {{$slot}}
             </main>
         </div>

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CostListController;
 use App\Http\Controllers\IncomeCostController;
+use App\Http\Controllers\IncomeListController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,11 +32,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [UserController::class,'logout']);
     Route::post('/add-income', [IncomeCostController::class,'addIncome']);
     Route::post('/add-cost', [IncomeCostController::class,'addCost']);
-    Route::get('/dashboard/income', function () {
-        return view('components/income-form');
-    });
-    Route::get('/dashboard/cost', function () {
-        return view('components/cost-form');
+    Route::post('/add-budget', [IncomeCostController::class,'addBudget']);
+    Route::get('/dashboard/income', [IncomeListController::class,'index']);
+    Route::get('/dashboard/cost', [CostListController::class, 'index']);
+    Route::get('/dashboard/budget', function () {
+        return view('components/budget-form');
     });
     Route::get('/dashboard',[IncomeCostController::class,'show']);
 });

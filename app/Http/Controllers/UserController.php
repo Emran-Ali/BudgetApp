@@ -45,7 +45,7 @@ class UserController extends Controller
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return view('layouts.greating');
+        return redirect('/');
     }
     public function create()
     {
@@ -60,12 +60,13 @@ class UserController extends Controller
         $validate = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone' => ['required', 'numeric'],
-            'occupation' => ['required','string'],
-            'address' => ['required','string'],
+            'phone' => ['required', 'numeric','regex:/(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/'],
+            'occupation' => ['required','string'],//occupation
+            'address' => ['required','string'], //address
             'password' => ['required', 'min:5', 'confirmed'],
         ]);
         $validate['password'] = bcrypt($validate['password']);
+        dd($validate);
         $user = User::create($validate);
 
         auth()->login($user);
