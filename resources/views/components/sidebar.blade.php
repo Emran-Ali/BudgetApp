@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center min-h-lvh overflow-hidden text-gray-400 bg-gray-900 ">
-    <a class="flex text-cyan-500 items-center w-full px-3 mt-3" href="#">
+    <a class="flex text-cyan-500 items-center w-full px-3 mt-3" href="/dashboard">
 
         <svg class="w-8 h-8 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
              stroke="#FAD5A5"
@@ -24,32 +24,32 @@
         </div>
         <div class="flex flex-col items-center w-full mt-2 border-t border-gray-700">
             <a class="flex items-center w-full h-12 px-3 mt-2 text-sky-500 rounded hover:bg-gray-700 hover:text-gray-300"
-               href="/dashboard/income">
+               href="/incomes">
                 <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor" stroke-width="3">
                     <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/>
                 </svg>
-                <span class="ml-2 text-sm font-medium">Add Income</span>
+                <span class="ml-2 text-sm font-medium">Income</span>
             </a>
             <a class="flex items-center w-full h-12 px-3 mt-2 text-red-500 rounded hover:bg-gray-700 hover:text-gray-300"
-               href="/dashboard/cost">
+               href="/expenses">
                 <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor" stroke-width="3">
                     <g fill="none" fill-rule="evenodd">
                         <path d="M18 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2h5M15 3h6v6M10 14L20.2 3.8"/>
                     </g>
                 </svg>
-                <span class="ml-2 text-sm font-medium">Add Expense</span>
+                <span class="ml-2 text-sm font-medium">Expense</span>
             </a>
         </div>
         <div class="flex flex-col items-center w-full mt-2 border-t border-gray-700">
             <a class="relative flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300"
-               href="/dashboard/budget">
+               href="/budgets">
                 <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 3h18v18H3zM12 8v8m-4-4h8"/>
                 </svg>
-                <span class="ml-2 text-sm font-medium">Add Budget</span>
+                <span class="ml-2 text-sm font-medium">Budget</span>
                 <span class="absolute top-0 left-0 w-2 h-2 mt-2 ml-2 bg-indigo-500 rounded-full"></span>
             </a>
             <a class="flex items-center w-full h-12 px-3 mt-2 rounded hover:bg-gray-700 hover:text-gray-300" href="#">

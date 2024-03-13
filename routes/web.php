@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\CostListController;
-use App\Http\Controllers\IncomeCostController;
-use App\Http\Controllers\IncomeListController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,26 +19,33 @@ use Illuminate\Support\Facades\Route;
 
 //__guest middleware group__
 Route::middleware(['guest'])->group(function () {
-Route::get('/', function () {
-    return view('layouts.greating');
-});
-Route::get('/login', [UserController::class,'login'])->name('login');
-Route::get('/register', [UserController::class,'create']);
-Route::post('/user/auth', [UserController::class,'authenticate']);
-Route::post('/user', [UserController::class,'store']);
+    Route::get('/', function () {
+        return view('layouts.greating');
+    });
+    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::get('/register', [UserController::class, 'create']);
+    Route::post('/user/auth', [UserController::class, 'authenticate']);
+    Route::post('/user', [UserController::class, 'store']);
 });
 //__auth middleware Group__
 Route::middleware(['auth'])->group(function () {
-    Route::post('/logout', [UserController::class,'logout']);
-    Route::post('/add-income', [IncomeCostController::class,'addIncome']);
-    Route::post('/add-cost', [IncomeCostController::class,'addCost']);
-    Route::post('/add-budget', [IncomeCostController::class,'addBudget']);
-    Route::get('/dashboard/income', [IncomeListController::class,'index']);
-    Route::get('/dashboard/cost', [CostListController::class, 'index']);
-    Route::get('/dashboard/budget', function () {
+    Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('incomes', [IncomeController::class,'index']);
+    Route::post('/incomes/store', [IncomeController::class,'store']);
+    Route::get('/expenses', [ExpenseController::class,'index']);
+    Route::post('/expenses/store', [ExpenseController::class,'store']);
+    Route::post('/add-budget', [BudgetController::class,'addBudget']);
+    Route::delete('/incomes/{id}', [IncomeController::class,'destroy']);
+    Route::delete('/expenses/{id}', [ExpenseController::class,'destroy']);
+
+
+//    Route::resource('incomes', IncomeController::class);
+//    Route::resource('expenses', [ExpenseController::class]);
+
+    Route::get('budgets', function () {
         return view('components/budget-form');
     });
-    Route::get('/dashboard',[IncomeCostController::class,'show']);
+    Route::get('/dashboard', [UserController::class, 'index']);
 });
 
 

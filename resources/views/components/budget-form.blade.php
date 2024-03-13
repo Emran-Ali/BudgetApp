@@ -14,11 +14,9 @@
                 @csrf
                 <input type="hidden"  name="type" value=3 />
                 <div class="mb-4">
-                    <label for="amount" class="inline-block text-lg ">
-                        Amount
-                    </label>
                     <input
                         type="number"
+                        placeholder="Amount"
                         class="border border-gray-200 rounded p-2 w-full"
                         name="amount" value="{{old('amount')}}"
                     />

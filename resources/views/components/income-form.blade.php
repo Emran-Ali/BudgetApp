@@ -10,7 +10,7 @@
                 </h2>
             </header>
 
-            <form method="POST" action="/add-income">
+            <form method="POST" action="/incomes/store">
                 @csrf
                 <div class="mb-4">
                     <label for="field" class="inline-block text-lg ">

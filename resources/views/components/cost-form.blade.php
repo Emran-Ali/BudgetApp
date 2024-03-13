@@ -10,7 +10,7 @@
                     Input your daily Expense
                 </h2>
             </header>
-            <form method="POST" action="/add-cost">
+            <form method="POST" action="/expenses/store">
                 @csrf
 
                 <div class="mb-4">

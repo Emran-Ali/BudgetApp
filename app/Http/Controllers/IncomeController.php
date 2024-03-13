@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Finance;
 use App\Models\IncomeCost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class IncomeListController extends Controller
+class IncomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $incomeList = IncomeCost::where(['user_id'=>auth()->user()->id, 'type'=>1])->get();
-
+        $incomeList = IncomeCost::where(['user_id'=>auth()->user()->id, 'type'=>Finance::INCOME])->paginate(3);
         return view('components.income-list',['incomeList'=>$incomeList]);
-
     }
 
     /**
@@ -31,7 +31,15 @@ class IncomeListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'field' => ['string', 'max:50'],
+            'amount' => ['integer', 'gt:-1'],
+        ]);
+        $validateData['type']=Finance::INCOME;
+        $validateData['user_id'] = auth()->user()->id;
+        IncomeCost::create($validateData);
+        DB::table('users')->where('id',auth()->user()->id)->increment('total_income',$validateData['amount']);
+        return redirect('/incomes')->with('message','Income Added Successfully');
     }
 
     /**
@@ -63,6 +71,11 @@ class IncomeListController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        $list = IncomeCost::find($id);
+        DB::table('users')->where('id',auth()->user()->id)->decrement('total_income',$list['amount']);
+        $list->delete();
+
+        return redirect('/incomes')->with('message','Income Deleted Successfully');
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IncomeCost;
 use App\Models\User;
 use App\Models\Income_cost;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,9 +15,25 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $monthlyIncome = IncomeCost::where(['User_id'=>auth()->user()->id,'type'=> 1])->whereBetween('created_at',
+            [
+                Carbon::now()->startOfMonth(),
+                Carbon::now()->endOfMonth()
+            ])->sum('amount');
+        $monthlyBudget = IncomeCost::where(['User_id'=>auth()->user()->id,'type'=> 3])->whereBetween('created_at',
+            [
+                Carbon::now()->startOfMonth(),
+                Carbon::now()->endOfMonth()
+            ])->sum('amount');
+        $monthlyCost = IncomeCost::where(['User_id'=>auth()->user()->id,'type'=> 2])->whereBetween('created_at',
+            [
+                Carbon::now()->startOfMonth(),
+                Carbon::now()->endOfMonth()
+            ])->sum('amount');
+        return view('components.dashboard',['monthlyIncome'=>$monthlyIncome,'monthlyCost'=>$monthlyCost, 'monthlyBudget'=>$monthlyBudget]);
+
     }
 
     /**
