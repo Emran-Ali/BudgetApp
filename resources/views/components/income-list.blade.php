@@ -11,9 +11,7 @@
 
         @if (count($errors) > 0)
             <script type="text/javascript">
-                $(document).ready(function () {
-                    $('my_modal').modal('show');
-                });
+                document.getElementById('my_modal').showModal();
             </script>
         @endif
         <dialog id="my_modal" class="modal">
