@@ -37,7 +37,7 @@
         <div class="container bg-cyan-500 top-0">
             <nav class="flex justify-between items-center p-3 ">
                 <span class="font-bold text-3xl text-gray-100 uppercase">
-                    Welcome {{auth()->user()->name}}
+                     {{auth()->user()->name}}
                 </span>
                 <form class="inline px-4 font-bold hover:text-red-500" method="POST" action="/logout">
                     @csrf
@@ -49,7 +49,6 @@
         </div>
         <div>
             <main>
-{{--            @yield('content')--}}
                 {{$slot}}
             </main>
         </div>

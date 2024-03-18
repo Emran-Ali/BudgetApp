@@ -6,7 +6,7 @@
         ($monthlyBudget-$monthlyCost) / $monthlyBudget : 0;
         $ratio*=100;
     @endphp
-    <div class="m-4 p-4 text-gray-950 text-2xl border-b-2">
+    <div class="m-4 p-4 text-gray-950 text-2xl">
         <div class="container flex">
             <div class="flex-1">
                 <h1>Remaing Budget:</h1>
@@ -19,21 +19,18 @@
 
                 <div class="card font-bold bg-sky-200 shadow-xl m-4 p-4 flex-1">
                     <a href="/incomes">
-                        <h1>Total Income: {{auth()->user()->total_income}}</h1>
-                        {{--            <h1>Total Income for this month: {{$data->monthly_income}}</h1>--}}
+                        <h1>Total Income: {{$totalIncome}}</h1>
                     </a>
                 </div>
 
                 <div class="card font-bold bg-red-100 shadow-xl m-4 p-4 flex-1">
                     <a href="/expenses">
-                        <h1>Total Expense: {{auth()->user()->total_cost}}</h1>
-                        {{--            <h1>Total Expense for this month: {{$data->monthly_cost}}</h1>--}}
+                        <h1>Total Expense: {{$totalExpense}}</h1>
                     </a>
                 </div>
                 <div class="card font-bold bg-yellow-200 shadow-xl m-4 p-4 flex-1">
                     <a href="/expenses">
-                        <h1>Your Overall Savings: {{auth()->user()->total_income - auth()->user()->total_cost}}</h1>
-                        {{--            <h1>Total Expense for this month: {{$data->monthly_cost}}</h1>--}}
+                        <h1>Your Overall Savings: {{$totalIncome - $totalExpense}}</h1>
                     </a>
                 </div>
             </div>

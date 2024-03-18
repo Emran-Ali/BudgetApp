@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('income_expense', function (Blueprint $table) {
+        Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('field')->default('others');
-            $table->unsignedTinyInteger('type')->comment("1=>income 2=>expense 3=>budget");
             $table->decimal('amount')->default(0);
             $table->timestamps();
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('income_costs');
+        Schema::dropIfExists('incomes');
     }
 };

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Finance;
-use App\Models\IncomeCost;
+
+use App\Models\Expense;
+use App\Models\IncomeExpense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $costList = IncomeCost::where(['user_id'=>auth()->user()->id, 'type'=>Finance::EXPENSE])->paginate(4);
+        $costList = Expense::latest()->where(['user_id'=>auth()->user()->id])->paginate(4);
 
         return view('components.expense-list',['costList'=>$costList]);
     }
@@ -36,10 +37,8 @@ class ExpenseController extends Controller
             'field' => ['string', 'max:50'],
             'amount' => ['integer', 'gt:-1'],
         ]);
-        $validateData['type']=Finance::EXPENSE;
         $validateData['user_id'] = auth()->user()->id;
-        IncomeCost::create($validateData);
-        DB::table('users')->where('id',auth()->user()->id)->increment('total_cost',$validateData['amount']);
+        Expense::create($validateData);
         return redirect('/expenses')->with('message','Expense Added Successfully');
     }
 
@@ -64,7 +63,12 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateData = $request->validate([
+            'field' => ['string', 'max:50'],
+            'amount' => ['integer', 'gt:-1'],
+        ]); 
+        Expense::where('id',$id)->update($validateData); 
+        return redirect('/expenses')->with('message','Expense Updated Successfully');
     }
 
     /**
@@ -72,10 +76,22 @@ class ExpenseController extends Controller
      */
     public function destroy(string $id)
     {
-        $list = IncomeCost::find($id);
-        DB::table('users')->where('id',auth()->user()->id)->decrement('total_cost',$list['amount']);
+        $list = Expense::find($id);
         $list->delete();
-
         return redirect('/expenses')->with('message','Expense deleted Successfully');
+    }
+
+    public function filter(Request $request){
+        
+        $date = strtotime($request->date);
+        if(!$date) {
+            return back()->with('message','Please Select Month');
+        }
+        $month =  date('m', $date);
+        $year =  date('Y', $date);
+       
+        $expensesList = Expense::latest()->where(['user_id'=>auth()->user()->id])->whereMonth('created_at',$month)->whereYear('created_at',$year)->paginate(3);
+        return view('components.expense-list',['costList'=>$expensesList]);
+
     }
 }

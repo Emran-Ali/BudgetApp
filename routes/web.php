@@ -37,6 +37,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/add-budget', [BudgetController::class,'addBudget']);
     Route::delete('/incomes/{id}', [IncomeController::class,'destroy']);
     Route::delete('/expenses/{id}', [ExpenseController::class,'destroy']);
+    Route::PUT('/incomes/{id}/edites', [IncomeController::class,'update']);
+    Route::PUT('/expenses/{id}/edites', [ExpenseController::class,'update']);
+    Route::POST('/incomes/filter',[IncomeController::class, 'filter']);
+    Route::POST('/expenses/filter',[ExpenseController::class, 'filter']);
 
 
 //    Route::resource('incomes', IncomeController::class);

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IncomeCost;
+use App\Models\Budget;
+use App\Models\Expense;
+use App\Models\Income;
 use App\Models\User;
 use App\Models\Income_cost;
 use Carbon\Carbon;
@@ -17,22 +19,29 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $monthlyIncome = IncomeCost::where(['User_id'=>auth()->user()->id,'type'=> 1])->whereBetween('created_at',
+        $totalIncome = Income::where(['User_id'=>auth()->user()->id])->sum('amount');
+        $totalExpense = Expense::where(['User_id'=>auth()->user()->id])->sum('amount');
+        $monthlyIncome = Income::where(['User_id'=>auth()->user()->id])->whereBetween('created_at',
             [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()->endOfMonth()
             ])->sum('amount');
-        $monthlyBudget = IncomeCost::where(['User_id'=>auth()->user()->id,'type'=> 3])->whereBetween('created_at',
+        $monthlyBudget = Budget::where(['User_id'=>auth()->user()->id])->whereBetween('created_at',
             [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()->endOfMonth()
             ])->sum('amount');
-        $monthlyCost = IncomeCost::where(['User_id'=>auth()->user()->id,'type'=> 2])->whereBetween('created_at',
+        $monthlyCost = Expense::where(['User_id'=>auth()->user()->id])->whereBetween('created_at',
             [
                 Carbon::now()->startOfMonth(),
                 Carbon::now()->endOfMonth()
             ])->sum('amount');
-        return view('components.dashboard',['monthlyIncome'=>$monthlyIncome,'monthlyCost'=>$monthlyCost, 'monthlyBudget'=>$monthlyBudget]);
+        return view('components.dashboard',
+            ['monthlyIncome' => $monthlyIncome,
+                'monthlyCost' => $monthlyCost,
+                'monthlyBudget' => $monthlyBudget,
+                'totalIncome' => $totalIncome,
+                'totalExpense' => $totalExpense]);
 
     }
 
@@ -84,9 +93,7 @@ class UserController extends Controller
             'password' => ['required', 'min:5', 'confirmed'],
         ]);
         $validate['password'] = bcrypt($validate['password']);
-        dd($validate);
         $user = User::create($validate);
-
         auth()->login($user);
         return redirect('/dashboard')->with('message','User Created and Login Successfully ');
     }

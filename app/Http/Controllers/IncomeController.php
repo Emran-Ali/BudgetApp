@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Finance;
-use App\Models\IncomeCost;
+use App\Models\Income;
+use App\Models\IncomeExpense;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomeList = IncomeCost::where(['user_id'=>auth()->user()->id, 'type'=>Finance::INCOME])->paginate(3);
+        $incomeList = Income::latest()->where(['user_id'=>auth()->user()->id])->paginate(3);
         return view('components.income-list',['incomeList'=>$incomeList]);
     }
 
@@ -35,10 +36,8 @@ class IncomeController extends Controller
             'field' => ['string', 'max:50'],
             'amount' => ['integer', 'gt:-1'],
         ]);
-        $validateData['type']=Finance::INCOME;
         $validateData['user_id'] = auth()->user()->id;
-        IncomeCost::create($validateData);
-        DB::table('users')->where('id',auth()->user()->id)->increment('total_income',$validateData['amount']);
+        Income::create($validateData);
         return redirect('/incomes')->with('message','Income Added Successfully');
     }
 
@@ -63,7 +62,12 @@ class IncomeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateData = $request->validate([
+            'field' => ['string', 'max:50'],
+            'amount' => ['integer', 'gt:-1'],
+        ]);
+        Income::where('id',$id)->update($validateData); 
+        return redirect('/incomes')->with('message','Income Updated Successfully');
     }
 
     /**
@@ -72,10 +76,22 @@ class IncomeController extends Controller
     public function destroy(string $id)
     {
 
-        $list = IncomeCost::find($id);
-        DB::table('users')->where('id',auth()->user()->id)->decrement('total_income',$list['amount']);
+        $list = Income::find($id);
         $list->delete();
 
         return redirect('/incomes')->with('message','Income Deleted Successfully');
+    }
+
+    public function filter(Request $request){
+        
+        $date = strtotime($request->date);
+        if(!$date) {
+            return back()->with('message','Please Select Month');
+        }
+        $month =  date('m', $date);
+        $year =  date('Y', $date);
+       
+        $incomeList = Income::latest()->where(['user_id'=>auth()->user()->id])->whereMonth('created_at',$month)->whereYear('created_at',$year)->paginate(3);
+        return view('components.income-list',['incomeList'=>$incomeList]);
     }
 }

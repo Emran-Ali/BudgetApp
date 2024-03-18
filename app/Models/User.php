@@ -44,8 +44,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function incomeCost(){
-        return $this->hasMany('\App\Models\incomeCost','user_id');
+    public function budget(){
+        return $this->hasMany('\App\Models\Budget','user_id');
+    }
+    public function income(){
+        return $this->hasMany('\App\Models\Income','user_id');
+    }
+    public function expense(){
+        return $this->hasMany('\App\Models\Expense','user_id');
     }
 
 }
